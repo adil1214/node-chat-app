@@ -9,10 +9,6 @@ socket.on('connect', function () {
     //     from: 'me@smtp.eu'
     // });
 
-    socket.emit('createMessage', {
-        from: 'user1',
-        text: 'hi, im new here!'
-    });
 });
 
 socket.on('disconnect', function () {

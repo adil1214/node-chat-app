@@ -25,15 +25,15 @@ io.on('connection', (socket) => {
     //     console.log('createEmail:', newEmail);
     // });
     //==============================
-    socket.emit('newMessage', {
-        from: 'user3',
-        text: 'hi all',
-        createdAt: (new Date()).toLocaleString()
-    });
 
-    socket.on('createMessage', (newMessage) => {
+    socket.on('createMessage', (message) => {
         console.log('message recivered \n');
-        console.log(JSON.stringify(newMessage, undefined, 2));
+        console.log(JSON.stringify(message, undefined, 2));
+        io.emit('newMessage', {
+            from: message.from,
+            text: message.text,
+            createdAt: (new Date()).toLocaleString()
+        });
     });
 
     socket.on('disconnect', () => {
