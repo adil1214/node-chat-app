@@ -13,31 +13,30 @@ let io = socketIO(server);
 app.use(express.static(publicPath));
 
 io.on('connection', (socket) => {
-    console.log('new user connected');
+    console.log('new user connected, id: ', socket.id);
 
-    // socket.emit('newEmail', {
-    //     from: 'anonyme@nowhere.com',
-    //     text: "hey. watch out!",
-    //     createdAt: 1999
-    // });
+    // sent to the current user
+    socket.emit('newMessage', "Welcome to the chat room");
 
-    // socket.on('createEmail', (newEmail) => {
-    //     console.log('createEmail:', newEmail);
-    // });
-    //==============================
+    // sent to everyone except the current user
+    socket.broadcast.emit('newMessage', "New user joined");
 
     socket.on('createMessage', (message) => {
-        console.log('message recivered \n');
-        console.log(JSON.stringify(message, undefined, 2));
+        // console.log(JSON.stringify(message, undefined, 2));
+        console.log(`${message.from}: ${message.text}`);
+        // sent to everyone
         io.emit('newMessage', {
             from: message.from,
             text: message.text,
             createdAt: (new Date()).toLocaleString()
         });
+
+        // io.emit('newMessage', `${message.from}: ${message.text}`);
+        // socket.broadcast.emit('newMessage', `${message.from}: ${message.text}`);
     });
 
     socket.on('disconnect', () => {
-        console.log('user disconnected.');
+        console.log('user disconnected, id:' , socket.id);
     });
 });
 
