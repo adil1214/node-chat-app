@@ -21,7 +21,7 @@ io.on('connection', (socket) => {
     socket.emit('newMessage', generateMessage('Admin', 'Welcome to the chat app'));
 
     // sent to everyone except the current user
-    socket.broadcast.emit('newMessage', generateMessage('Admin', `user${socket.id.slice(0,5)} joined`));
+    socket.broadcast.emit('newMessage', generateMessage('Admin', `user[${socket.id.slice(0,5)}] joined`));
 
     socket.on('createMessage', (message, callback) => {
         console.log(`${message.from}: ${message.text}`);
