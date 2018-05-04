@@ -11,7 +11,7 @@ describe('generateMessage function', () => {
 
         expect(retObject.text).toBe(text1);
         expect(retObject.from).toBe(from1);
-        expect(typeof retObject.createdAt).toBe('string');
+        expect(typeof retObject.createdAt).toBe('number');
 
     });
 });
@@ -25,6 +25,6 @@ describe('generateLocationMessage', () => {
         let res = generateLocationMessage(from, lat, long);
         expect(res.from).toBe(from);
         expect(res.url).toBe(url);
-        expect(typeof res.createdAt).toBe('string');
+        expect(typeof res.createdAt).toBe('number');
     });
 });
